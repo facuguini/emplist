@@ -1,5 +1,6 @@
 var n=1;
 var defecto=5;
+var total=1;
 
 function runScript(e) {
     if (e.keyCode == 13) {
