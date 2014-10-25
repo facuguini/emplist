@@ -48,20 +48,22 @@
 			<a href="#setPanel" class="ui-btn ui-corner-all ui-shadow ui-icon-gear ui-btn-icon-left ui-btn-icon-notext"></a>
 			<h1>Anotador de Empanadas</h1>
 		</div>
-		<div data-role="content" data-theme="a" id="contenido">
-				     
+		<div data-role="content" data-theme="a" >
+			<div id="contenido">
 		      <label for="fname">Tipo</label>
 		      <input type="text" name="fname" onkeypress="return runScript(event)" id="fname" data-clear-btn="true">
-		    
-		    <br>
-		    <div>
-				<label for="empanada1">Carne: </label>
-				<input type="range" class="empanada" name="empanada1" id="empanada1" value="5" min="0" max="50" data-theme="a"  /> 
-
-			</div>	
-
+		      <br>
+		   		<div>
+					<label for="empanada1">Carne: </label>
+					<input type="range" class="empanada" name="empanada1" id="empanada1" value="5" min="0" max="50" data-theme="a"  /> 
+				</div>	
+			</div>
+			<button class="ui-btn" id="boton">Calcular</button> 
 		</div>
+
 	</div>
+
+
 
 	<script src="js/main.js"></script>
 </body>

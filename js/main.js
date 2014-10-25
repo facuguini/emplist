@@ -1,6 +1,6 @@
 var n=1;
 var defecto=5;
-var total=1;
+var Total=0;
 
 function runScript(e) {
     if (e.keyCode == 13) {
@@ -18,13 +18,22 @@ function runScript(e) {
 $( document ).ready(function() {
  
 
-//$( "#empanada1" ).bind( "change", function(event, ui) {
- //alert($("#empanada1").val());
-//});
+	//$( "#empanada1" ).bind( "change", function(event, ui) {
+	 //alert($("#empanada1").val());
+	//});
 
-$( "#defecto" ).on( 'slidestop', function( event ) { 
-	defecto = $("#defecto").val()
-	console.log(defecto); 
-});
+	$( "#defecto" ).on( 'slidestop', function( event ) { 
+		defecto = $("#defecto").val()
+		console.log(defecto); 
+	});
+
+
+	$("#boton").click(function( ) { 
+		Total=0;
+	  	$(".empanada").each(function( index ) { 
+	    Total = parseInt(Total) + parseInt($(this).val());
+		}); 
+	console.log(Total);
+	});
 
 });
