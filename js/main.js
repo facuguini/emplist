@@ -1,22 +1,12 @@
-var n=1;
-var defecto=5;
-var Total=0;
-
-function runScript(e) {
-    if (e.keyCode == 13) {
-        var gusto = $('#fname').val();
-        if (gusto.length > 0) {
-	        n=n+1;
-	        $('#contenido').append("<div><label for='empanada" + n + "'>" + gusto + ": </label> <input type='range' class='empanada' name='empanada" + n +"' id='empanada" + n + "' value='"+ defecto + "' min='0' max='50' data-theme='a' /></div>");
-	        $('.ui-page').trigger('create');
-	   		return false;
-   		}
-    }
-}
-
-
 $( document ).ready(function() {
- 
+	if(localStorage.getItem('primeravez')==null) {
+		console.log('entro por primera vez')
+		localStorage.setItem('defecto', '5');
+		localStorage.setItem('n','1');
+		localStorage.setItem('total', '0');
+		localStorage.setItem('primeravez', 'false')
+	}
+ 	$( "#defecto" ).val(defecto)
 
 	//$( "#empanada1" ).bind( "change", function(event, ui) {
 	 //alert($("#empanada1").val());
@@ -24,7 +14,7 @@ $( document ).ready(function() {
 
 	$( "#defecto" ).on( 'slidestop', function( event ) { 
 		defecto = $("#defecto").val()
-		console.log(defecto); 
+		localStorage.setItem("defecto", JSON.stringify(defecto));
 	});
 
 
@@ -34,6 +24,28 @@ $( document ).ready(function() {
 	    Total = parseInt(Total) + parseInt($(this).val());
 		}); 
 	console.log(Total);
+	var dtotal = Math.floor(Total/12)
+	console.log(dtotal+" docena(s) y " + (Total-dtotal*12) + " empanadas.")
+	//localStorage.setItem('total', JSON.stringify(Total));
 	});
 
 });
+
+var n=1;
+var defecto= JSON.parse(localStorage.getItem('defecto'));
+var Total=0;
+//var Total= JSON.parse(localStorage.getItem('total'))
+function runScript(e) {
+    if (e.keyCode == 13) {
+        var gusto = $('#fname').val();
+        if (gusto.length > 0) {
+	        n=n+1;
+	        $('#contenido').append("<div><label for='empanada" + n + "'>" + gusto + ": </label> <input type='range' class='empanada' name='empanada" + n +"' id='empanada" + n + "' value='"+ defecto + "' min='0' max='50' data-theme='a' /></div>");
+	        $('.ui-page').trigger('create');
+	        //localStorage.setItem("n",JSON.stringify(n));
+	   		return false;
+   		}
+    }
+}
+
+
