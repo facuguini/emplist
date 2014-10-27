@@ -5,8 +5,18 @@ $( document ).ready(function() {
 		localStorage.setItem('n','1');
 		localStorage.setItem('total', '0');
 		localStorage.setItem('primeravez', 'false')
+		n = JSON.parse(localStorage.getItem('n'));
+		defecto= JSON.parse(localStorage.getItem('defecto'));
+		Total= JSON.parse(localStorage.getItem('total'))
 	}
  	$( "#defecto" ).val(defecto)
+
+
+ 	for (i=2 ; i<=n ; i++) {
+ 		$('#contenido').append(JSON.parse(localStorage.getItem('empanada'+i)));
+        $('.ui-page').trigger('create');
+ 	}
+
 
 	//$( "#empanada1" ).bind( "change", function(event, ui) {
 	 //alert($("#empanada1").val());
@@ -31,7 +41,8 @@ $( document ).ready(function() {
 
 });
 
-var n=1;
+//var n=1;
+var n = JSON.parse(localStorage.getItem('n'));
 var defecto= JSON.parse(localStorage.getItem('defecto'));
 var Total=0;
 //var Total= JSON.parse(localStorage.getItem('total'))
@@ -40,9 +51,11 @@ function runScript(e) {
         var gusto = $('#fname').val();
         if (gusto.length > 0) {
 	        n=n+1;
-	        $('#contenido').append("<div><label for='empanada" + n + "'>" + gusto + ": </label> <input type='range' class='empanada' name='empanada" + n +"' id='empanada" + n + "' value='"+ defecto + "' min='0' max='50' data-theme='a' /></div>");
+	        var content = "<div><label for='empanada" + n + "'>" + gusto + ": </label> <input type='range' class='empanada' name='empanada" + n +"' id='empanada" + n + "' value='"+ defecto + "' min='0' max='50' data-theme='a' /></div>"
+	        $('#contenido').append(content);
 	        $('.ui-page').trigger('create');
-	        //localStorage.setItem("n",JSON.stringify(n));
+	        localStorage.setItem("n",JSON.stringify(n));
+	        localStorage.setItem('empanada'+n, JSON.stringify(content));
 	   		return false;
    		}
     }
