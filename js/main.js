@@ -17,6 +17,16 @@ $( document ).ready(function() {
         $('.ui-page').trigger('create');
  	}
 
+ 	$('.prefab').click(function() {
+ 		var gusto = $(this).closest('li').text()
+		n=n+1;
+	    var content = "<div><label for='empanada" + n + "'>" + gusto + ": </label> <input type='range' class='empanada' name='empanada" + n +"' id='empanada" + n + "' value='"+ defecto + "' min='0' max='50' data-theme='a' /></div>"
+        $('#contenido').append(content);
+        $('.ui-page').trigger('create');
+        localStorage.setItem("n",JSON.stringify(n));
+        localStorage.setItem('empanada'+n, JSON.stringify(content));
+ 	})
+
 
 	//$( "#empanada1" ).bind( "change", function(event, ui) {
 	 //alert($("#empanada1").val());
@@ -56,6 +66,7 @@ function runScript(e) {
 	        $('.ui-page').trigger('create');
 	        localStorage.setItem("n",JSON.stringify(n));
 	        localStorage.setItem('empanada'+n, JSON.stringify(content));
+	   		$('#fname').val('')
 	   		return false;
    		}
     }
