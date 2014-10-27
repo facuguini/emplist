@@ -1,3 +1,1 @@
-var app = angular.module('empanadas', ['ngRoute']).config(function(){
-
-});
+var app = angular.module('empanadas', []);

@@ -1,4 +1,4 @@
-app.controller('MainController', ['$scope', function($scope) {
+app.controller('mainController', ['$scope', function($scope) {
 	if(localStorage.getItem('primeravez')==null) {
 		console.log('entro por primera vez')
 		localStorage.setItem('defecto', '5');
