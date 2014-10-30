@@ -1,4 +1,15 @@
 app.controller('mainController', ['$scope', function($scope) {
+	$scope.prefabs = [{name: 'carne'},
+        {name: 'jamon y queso'},
+        {name: 'pollo'},
+        {name: ' queso y cebolla'},
+        {name: 'humita'},
+        {name: 'calabresa'}];
+    $scope.empanadas = [];
+	for (i=1 ; i<=n ; i++) {
+		$scope.empanadas[i] = JSON.parse(localStorage.getItem('empanada'+i));
+ 	}
+
 	if(localStorage.getItem('primeravez')==null) {
 		console.log('entro por primera vez')
 		localStorage.setItem('defecto', '5');
@@ -17,15 +28,21 @@ app.controller('mainController', ['$scope', function($scope) {
         $('.ui-page').trigger('create');
  	}
 
- 	$('.prefab').click(function() {
- 		var gusto = $(this).closest('li').text()
+ 	$scope.addpre = function(_gusto) {
+ 		var gusto = _gusto;
 		n=n+1;
 	    var content = "<div><label for='empanada" + n + "'>" + gusto + ": </label> <input type='range' class='empanada' name='empanada" + n +"' id='empanada" + n + "' value='"+ defecto + "' min='0' max='50' data-theme='a' /></div>"
         $('#contenido').append(content);
         $('.ui-page').trigger('create');
+                var empanada = {
+        	name: gusto,
+        	id: n,
+        	value: defecto
+        }
+        $scope.empanadas[$scope.empanadas.length] = empanada;
         localStorage.setItem("n",JSON.stringify(n));
-        localStorage.setItem('empanada'+n, JSON.stringify(content));
- 	})
+        /*localStorage.setItem('empanada'+n, JSON.stringify(content));*/
+ 	}
 
 
 	//$( "#empanada1" ).bind( "change", function(event, ui) {

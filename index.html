@@ -18,44 +18,18 @@
 	<div data-role="panel" id="setPanel"> 
     	<h2>Settings</h2>
     	<fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-			<legend>Settings 1:</legend>
+			<legend>Gon gay:</legend>
 			<input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" />
 			<label for="radio-choice-a1">On</label>
 			<input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  />
 			<label for="radio-choice-b1">Off</label>
 		</fieldset>
-		<fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-			<legend>Settings 2:</legend>
-			<input type="radio" name="radio-choice-a2" id="radio-choice-a2" value="on" checked="checked" />
-			<label for="radio-choice-a2">On</label>
-			<input type="radio" name="radio-choice-a2" id="radio-choice-b2" value="off"  />
-			<label for="radio-choice-b2">Off</label>
-		</fieldset>
-    	<fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-			<legend>Settings 3:</legend>
-			<input type="radio" name="radio-choice-a3" id="radio-choice-a3" value="on" checked="checked" />
-			<label for="radio-choice-a3">On</label>
-			<input type="radio" name="radio-choice-a3" id="radio-choice-b3" value="off"  />
-			<label for="radio-choice-b3">Off</label>
-		</fieldset>
-    	<fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-			<legend>Settings 4:</legend>
-			<input type="radio" name="radio-choice-a4" id="radio-choice-a4" value="on" checked="checked" />
-			<label for="radio-choice-a4">On</label>
-			<input type="radio" name="radio-choice-a4" id="radio-choice-b4" value="off"  />
-			<label for="radio-choice-b4">Off</label>
-		</fieldset>
 		<label for="slider1">Empanadas por Defecto:</label>
 		<input type="range" name="slider1" id="defecto" value="5" min="0" max="10" data-theme="a" />
 	</div> 
-	<div data-role="panel" id="prePanel" data-position='right' data-position-fixed='true'>
+	<div data-role="panel" id="prePanel" data-position='right' data-position-fixed='true' data-display='overlay'>
 		<ul data-role='listview'>
-			<li><a href='#' class='prefab'>Carne</a></li>
-			<li><a href='#' class='prefab'>Jamon y Queso</a></li>
-			<li><a href='#' class='prefab'>Pollo</a></li>
-			<li><a href='#' class='prefab'>Queso y Cebolla</a></li>
-			<li><a href='#' class='prefab'>Humita</a></li>
-			<li><a href='#' class='prefab'>Calabresa</a></li>
+			<li ng-repeat='prefab in prefabs'><a href='#' ng-click='addpre(prefab.name)'>{{prefab.name}}</a></li>
 		</ul>
 	</div>
 	<div data-role="header" data-position="inline">
@@ -68,9 +42,9 @@
 	      <label for="fname">Tipo</label>
 	      <input type="text" name="fname" onkeypress="return runScript(event)" id="fname" data-clear-btn="true">
 	      <br>
-	   		<div>
-				<label for="empanada1">Carne: </label>
-				<input type="range" class="empanada" name="empanada1" id="empanada1" value="5" min="0" max="50" data-theme="a"  /> 
+	   		<div ng-repeat="empanada in empanadas">
+				<label for="{{empanada.id}}">{{empanada.name}} </label>
+				<input type="range" class="empanada" name="{{empanada.id}}" id='{{empanada.id}}' value="{{empanada.value}}" min="0" max="50" data-theme="a"  /> 
 			</div>	
 		</div>
 		<button class="ui-btn" id="boton">Calcular</button> 
