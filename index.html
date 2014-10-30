@@ -25,7 +25,7 @@
 			<label for="radio-choice-b1">Off</label>
 		</fieldset>
 		<label for="slider1">Empanadas por Defecto:</label>
-		<input type="range" name="slider1" id="defecto" value="5" min="0" max="10" data-theme="a" />
+		<input type="range" name="slider1" id="defecto" ng-model="cantdefecto" min="0" max="10" data-theme="a" />
 	</div> 
 	<div data-role="panel" id="prePanel" data-position='right' data-position-fixed='true' data-display='overlay'>
 		<ul data-role='listview'>
@@ -49,7 +49,7 @@
 				<input type="range" class="empanada" name="{{empanada.id}}" id='{{empanada.id}}' value="{{empanada.value}}" min="0" max="50" data-theme="a"  /> 
 			</div>	
 		</div>
-		<button class="ui-btn" id="boton">Calcular</button> 
+		<button class="ui-btn" id="boton" ng-click="calcular()">Calcular</button> 
 	</div>
 </div>
 
