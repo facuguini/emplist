@@ -40,7 +40,9 @@
 	<div data-role="content" data-theme="a" >
 		<div id="contenido">
 	      <label for="fname">Tipo</label>
-	      <input type="text" name="fname" onkeypress="return runScript(event)" id="fname" data-clear-btn="true">
+	      <form ng-submit="addcustom()">
+	      	<input type="text" name="fname" ng-model='customtext' id="fname" data-clear-btn="true">
+	      </form>
 	      <br>
 	   		<div ng-repeat="empanada in empanadas">
 				<label for="{{empanada.id}}">{{empanada.name}} </label>

@@ -5,10 +5,7 @@ app.controller('mainController', ['$scope', function($scope) {
         {name: ' queso y cebolla'},
         {name: 'humita'},
         {name: 'calabresa'}];
-    $scope.empanadas = [];
-	for (i=1 ; i<=n ; i++) {
-		$scope.empanadas[i] = JSON.parse(localStorage.getItem('empanada'+i));
- 	}
+    $scope.empanadas = JSON.parse(localStorage.getItem('empanadas'));
 
 	if(localStorage.getItem('primeravez')==null) {
 		console.log('entro por primera vez')
@@ -30,17 +27,24 @@ app.controller('mainController', ['$scope', function($scope) {
 
  	$scope.addpre = function(_gusto) {
  		var gusto = _gusto;
-		n=n+1;
-	    var content = "<div><label for='empanada" + n + "'>" + gusto + ": </label> <input type='range' class='empanada' name='empanada" + n +"' id='empanada" + n + "' value='"+ defecto + "' min='0' max='50' data-theme='a' /></div>"
+/*	    var content = "<div><label for='empanada" + n + "'>" + gusto + ": </label> <input type='range' class='empanada' name='empanada" + n +"' id='empanada" + n + "' value='"+ defecto + "' min='0' max='50' data-theme='a' /></div>"
         $('#contenido').append(content);
-        $('.ui-page').trigger('create');
-                var empanada = {
+        $('.ui-page').trigger('create');*/
+        var num;
+        if($scope.empanadas!=null){
+        	num=$scope.empanadas.length;
+        } else {
+        	num=1;
+			$scope.empanadas = [];
+        }
+        var empanada = {
         	name: gusto,
-        	id: n,
+        	id: 'empanada'+num,
         	value: defecto
         }
-        $scope.empanadas[$scope.empanadas.length] = empanada;
+        $scope.empanadas.push(empanada);
         localStorage.setItem("n",JSON.stringify(n));
+        localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
         /*localStorage.setItem('empanada'+n, JSON.stringify(content));*/
  	}
 
@@ -70,7 +74,27 @@ app.controller('mainController', ['$scope', function($scope) {
 	var Total=0;
 	//var Total= JSON.parse(localStorage.getItem('total'))
 	//var n=1;
-	function runScript(e) {
+
+	$scope.addcustom = function() {
+		if($scope.customtext){
+	        var num;
+	        if($scope.empanadas!=null){
+	        	num=$scope.empanadas.length;
+	        } else {
+	        	num=1;
+	        	$scope.empanadas = [];
+	        }
+	        var empanada = {
+	        	name: $scope.customtext,
+	        	id: 'empanada'+num,
+	        	value: defecto
+	        }
+	        $scope.empanadas.push(empanada);
+	        localStorage.setItem("n",JSON.stringify(n));
+	        localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
+        }
+	}
+/*	function runScript(e) {
 	    if (e.keyCode == 13) {
 	        var gusto = $('#fname').val();
 	        if (gusto.length > 0) {
@@ -84,5 +108,5 @@ app.controller('mainController', ['$scope', function($scope) {
 		   		return false;
 	   		}
 	    }
-	}
+	}*/
 }]);
