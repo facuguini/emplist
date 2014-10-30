@@ -13,13 +13,15 @@ app.controller('mainController', ['$scope', function($scope) {
 		localStorage.setItem('primeravez', 'false')
 		$scope.cantdefecto = JSON.parse(localStorage.getItem('defecto'));
 	}
+
  	$scope.addpre = function(_gusto) {
+ 		console.log($scope.cantdefecto)
  		var gusto = _gusto;
         var num;
         if($scope.empanadas!=null){
         	num=$scope.empanadas.length;
         } else {
-        	num=1;
+        	num=0;
 			$scope.empanadas = [];
         }
         var empanada = {
@@ -36,7 +38,6 @@ app.controller('mainController', ['$scope', function($scope) {
 		localStorage.setItem("defecto", JSON.stringify(defecto));
 	});
 
-
 	$scope.calcular = function() { 
 		var Total=0;
 	  	$(".empanada").each(function( index ) { 
@@ -46,17 +47,14 @@ app.controller('mainController', ['$scope', function($scope) {
 		var dtotal = Math.floor(Total/12)
 		console.log(dtotal+" docena(s) y " + (Total-dtotal*12) + " empanadas.")
 	};
-	var n = JSON.parse(localStorage.getItem('n'));
-	var defecto= JSON.parse(localStorage.getItem('defecto'));
 	
-
 	$scope.addcustom = function() {
 		if($scope.customtext){
 	        var num;
 	        if($scope.empanadas!=null){
 	        	num=$scope.empanadas.length;
 	        } else {
-	        	num=1;
+	        	num=0;
 	        	$scope.empanadas = [];
 	        }
 	        var empanada = {

@@ -44,7 +44,7 @@
 	      	<input type="text" name="fname" ng-model='customtext' id="fname" data-clear-btn="true">
 	      </form>
 	      <br>
-	   		<div ng-repeat="empanada in empanadas">
+	   		<div ng-repeat="empanada in empanadas track by $index">
 				<label for="{{empanada.id}}">{{empanada.name}} </label>
 				<input type="range" class="empanada" name="{{empanada.id}}" id='{{empanada.id}}' value="{{empanada.value}}" min="0" max="50" data-theme="a"  /> 
 			</div>	
