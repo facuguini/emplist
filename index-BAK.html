@@ -45,7 +45,8 @@
 	      </form>
 	      <br>
 	   		<div ng-repeat="empanada in empanadas track by $index">
-				<span>{{empanada.name}} : </span><div id='{{empanada.id}}'><a href='#' ng-click='add($index)'>+  </a><span class='empanadas'>{{empanada.value}}</span><a href='#' ng-click='res($index)'>  -</a></div>
+				<label for="{{empanada.id}}">{{empanada.name}} </label>
+				<input type="range" class="empanada" name="{{empanada.id}}" id='{{empanada.id}}' value="{{empanada.value}}" ng-model='empanada.value' min="0" max="50" data-theme="a" ng-update='empanadachange()' /> 
 			</div>
 		</div>
 		<button class="ui-btn" id="boton" ng-click="calcular()">Calcular</button> 

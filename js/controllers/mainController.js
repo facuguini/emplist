@@ -9,10 +9,12 @@ app.controller('mainController', ['$scope', function($scope) {
 
 	if(localStorage.getItem('primeravez')==null) {
 		console.log('entro por primera vez')
-		localStorage.setItem('defecto', JSON.stringify(5));
+		localStorage.setItem('defecto', 5);
 		localStorage.setItem('primeravez', 'false')
 		$scope.cantdefecto = JSON.parse(localStorage.getItem('defecto'));
 	}
+	$scope.cantdefecto = JSON.parse(localStorage.getItem('defecto'));
+	$scope.val = $scope.cantdefecto;
 
  	$scope.addpre = function(_gusto) {
  		console.log($scope.cantdefecto)
@@ -33,10 +35,32 @@ app.controller('mainController', ['$scope', function($scope) {
         localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
  	}
 
-	$( "#defecto" ).on( 'slidestop', function( event ) { 
-		defecto = $("#defecto").val()
-		localStorage.setItem("defecto", JSON.stringify(defecto));
-	});
+	$scope.defectochange = function() { 
+		var defecto = $scope.cantdefecto
+		localStorage.setItem("defecto", defecto);
+	};
+/*
+	$scope.empanadachange = function() {
+		console.log(this.empanada.id) 
+		console.log(this.empanada.name)
+		console.log(this.empanada.index)
+	}*/
+
+	$scope.add = function(index) {
+		var emp = $scope.empanadas[index];
+		var nval = emp.value+1
+		emp.value = nval;
+		$scope.empanadas[index] = emp;
+		localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
+	}
+
+	$scope.res = function(index) {
+		var emp = $scope.empanadas[index];
+		var nval = emp.value-1
+		emp.value = nval;
+		$scope.empanadas[index] = emp;
+		localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
+	}
 
 	$scope.calcular = function() { 
 		var Total=0;
