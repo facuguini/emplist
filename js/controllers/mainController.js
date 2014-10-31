@@ -1,4 +1,4 @@
-app.controller('mainController', ['$scope', 'ngTouch', function($scope, $touch) {
+app.controller('mainController', ['$scope', function($scope) {
 	$scope.prefabs = [{name: 'carne'},
         {name: 'jamon y queso'},
         {name: 'pollo'},
@@ -22,7 +22,8 @@ app.controller('mainController', ['$scope', 'ngTouch', function($scope, $touch) 
 		$scope.nochecked = true;
 		$scope.sichecked = false;
 	}
-	$scope.empShow = true
+	$scope.empShow = true;
+	$scope.undoshow = false;
 
  	$scope.addpre = function(_gusto) {
  		console.log($scope.cantdefecto)
@@ -127,9 +128,9 @@ app.controller('mainController', ['$scope', 'ngTouch', function($scope, $touch) 
 		localStorage.setItem('docenas', 'false')
 	}
 
-    $scope.confirmDel = function(empanada) {
+    $scope.delete = function(id) {
     	$scope.empShow = false;
-
+    	$scope.undoshow = true;
     }
 
 }]);

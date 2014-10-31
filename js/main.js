@@ -1,1 +1,1 @@
-var app = angular.module('empanadas', []);
+var app = angular.module('empanadas', ['ngTouch']);
