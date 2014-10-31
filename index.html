@@ -18,11 +18,11 @@
 	<div data-role="panel" id="setPanel"> 
     	<h2>Settings</h2>
     	<fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-			<legend>Gon gay:</legend>
-			<input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" />
-			<label for="radio-choice-a1">On</label>
-			<input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  />
-			<label for="radio-choice-b1">Off</label>
+			<legend>Dividir en Docenas:</legend>
+			<input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" ng-click="docOn()"/>
+			<label for="radio-choice-a1">Si</label>
+			<input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  ng-click="docOff()"/>
+			<label for="radio-choice-b1">No</label>
 		</fieldset>
 		<label for="slider1">Empanadas por Defecto:</label>
 		<input type="range" name="slider1" id="defecto" value='{{cantdefecto}}' min="0" max="10" data-theme="a" ng-init='val' ng-model="cantdefecto" ng-change='defectochange()'/>
@@ -48,6 +48,7 @@
 				<span>{{empanada.name}} : </span><div id='{{empanada.id}}'><a href='#' ng-click='add($index)'>+  </a><span class='empanadas'>{{empanada.value}}</span><a href='#' ng-click='res($index)'>  -</a></div>
 			</div>
 		</div>
+		<pre> Total: <span ng-bind="total.valor()"></span> empanadas.</pre>
 		<button class="ui-btn" id="boton" ng-click="calcular()">Calcular</button> 
 	</div>
 </div>
