@@ -1,4 +1,4 @@
-app.controller('mainController', ['$scope', function($scope) {
+app.controller('mainController', ['$scope', 'ngTouch', function($scope, $touch) {
 	$scope.prefabs = [{name: 'carne'},
         {name: 'jamon y queso'},
         {name: 'pollo'},
@@ -12,10 +12,17 @@ app.controller('mainController', ['$scope', function($scope) {
 		localStorage.setItem('defecto', 5);
 		localStorage.setItem('primeravez', 'false')
 		localStorage.setItem('docenas', 'false')
-		$scope.cantdefecto = JSON.parse(localStorage.getItem('defecto'));
 	}
 	$scope.cantdefecto = JSON.parse(localStorage.getItem('defecto'));
 	$scope.val = $scope.cantdefecto;
+	if (localStorage.getItem('docenas')==="true") {
+		$scope.nochecked = false;
+		$scope.sichecked = true;
+	} else if (localStorage.getItem('docenas')==="false") {
+		$scope.nochecked = true;
+		$scope.sichecked = false;
+	}
+	$scope.empShow = true
 
  	$scope.addpre = function(_gusto) {
  		console.log($scope.cantdefecto)
@@ -78,7 +85,12 @@ app.controller('mainController', ['$scope', function($scope) {
 	      	var Total=0;
 			for (var i = 0 ; i< $scope.empanadas.length ; i++ ) { 
 		    	Total = parseInt(Total) + parseInt($scope.empanadas[i].value);
-			}      	
+			} 
+			if (Total==0) {
+				$scope.totalshow = false;
+			} else {
+				$scope.totalshow = true;
+			} 	
 	        if (localStorage.getItem('docenas')==="true") {
 				var dtotal = Math.floor(Total/12)
 				var data = dtotal+" docena(s) y " + (Total-dtotal*12)
@@ -114,4 +126,10 @@ app.controller('mainController', ['$scope', function($scope) {
 	$scope.docOff = function() {
 		localStorage.setItem('docenas', 'false')
 	}
+
+    $scope.confirmDel = function(empanada) {
+    	$scope.empShow = false;
+
+    }
+
 }]);

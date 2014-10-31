@@ -7,8 +7,8 @@
 	<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
 	<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.3.min.css" />
 	<script src="js/lib/jquery-1.11.1.min.js"></script>
-	<script src="js/lib/jquery.mobile-1.4.3.min.js"></script>
 	<script src="js/lib/angular.min.js"></script>
+	<script src="js/lib/angular-touch.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/controllers/mainController.js"></script>
 </head>
@@ -19,9 +19,9 @@
     	<h2>Settings</h2>
     	<fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
 			<legend>Dividir en Docenas:</legend>
-			<input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" ng-click="docOn()"/>
+			<input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" ng-checked="sichecked" ng-click="docOn()"/>
 			<label for="radio-choice-a1">Si</label>
-			<input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  ng-click="docOff()"/>
+			<input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off" ng-checked="nochecked" ng-click="docOff()"/>
 			<label for="radio-choice-b1">No</label>
 		</fieldset>
 		<label for="slider1">Empanadas por Defecto:</label>
@@ -44,11 +44,11 @@
 	      	<input type="text" name="fname" ng-model='customtext' id="fname" data-clear-btn="true">
 	      </form>
 	      <br>
-	   		<div ng-repeat="empanada in empanadas track by $index">
+	   		<div ng-repeat="empanada in empanadas track by $index" ng-swipe-left="confirmDel($index)" ng-show="empShow">
 				<span>{{empanada.name}} : </span><div id='{{empanada.id}}'><a href='#' ng-click='add($index)'>+  </a><span class='empanadas'>{{empanada.value}}</span><a href='#' ng-click='res($index)'>  -</a></div>
 			</div>
 		</div>
-		<pre> Total: <span ng-bind="total.valor()"></span> empanadas.</pre>
+		<pre ng-show="totalshow"> Total: <span ng-bind="total.valor()"></span> empanadas.</pre>
 		<button class="ui-btn" id="boton" ng-click="calcular()">Calcular</button> 
 	</div>
 </div>
