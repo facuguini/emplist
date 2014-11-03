@@ -47,12 +47,18 @@
 			</form>
 			<br>
 	   		<div ng-repeat="empanada in empanadas track by $index" ng-swipe-left="swipe($index)">
-				<div ng-show="!empanada.undo"><span>{{empanada.name}} : </span><div id='{{empanada.id}}'><a href='#' ng-click='add($index)'>+  </a><span class='empanadas'>{{empanada.value}}</span><a href='#' ng-click='res($index)'>  -</a></div></div>
-				<a href='#' class="ui-btn ui-corner-all" ng-click='res($index)' ng-show="empanada.undo" ng-click="undo($index)">UNDO</a>
+				<div ng-show="!empanada.undo">
+					<span>{{empanada.name}} : </span>
+					<div id='{{empanada.id}}'>
+						<a href='#' class="ui-btn ui-btn-inline" ng-click='add($index)'>+  </a>
+						<span class='empanadas'>{{empanada.value}}</span>
+						<a href='#' class="ui-btn ui-btn-inline" ng-click='res($index)'>  -</a>
+					</div>
+				</div>
+				<a href='#' class="ui-btn" ng-show="empanada.undo" ng-click="undo($index)">UNDO</a>
 			</div>
 		</div>
 		<pre ng-show="totalshow"> Total: <span ng-bind="total.valor()"></span> empanadas.</pre>
-		<button class="ui-btn" id="boton" ng-click="calcular()">Calcular</button> 
 	</div>
 </div>
 

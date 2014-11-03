@@ -1,4 +1,11 @@
-app.controller('mainController', ['$scope', function($scope) {
+app.controller('mainController', ['$scope', '$timeout', function($scope, $timeout) {
+	/*PARTE INICIO*/
+	if(localStorage.getItem('primeravez')==null) {
+		console.log('entro por primera vez')
+		localStorage.setItem('defecto', 5);
+		localStorage.setItem('primeravez', 'false')
+		localStorage.setItem('docenas', 'false')
+	}
 	$scope.prefabs = [{name: 'carne'},
         {name: 'jamon y queso'},
         {name: 'pollo'},
@@ -6,13 +13,6 @@ app.controller('mainController', ['$scope', function($scope) {
         {name: 'humita'},
         {name: 'calabresa'}];
     $scope.empanadas = JSON.parse(localStorage.getItem('empanadas'));
-
-	if(localStorage.getItem('primeravez')==null) {
-		console.log('entro por primera vez')
-		localStorage.setItem('defecto', 5);
-		localStorage.setItem('primeravez', 'false')
-		localStorage.setItem('docenas', 'false')
-	}
 	$scope.cantdefecto = JSON.parse(localStorage.getItem('defecto'));
 	$scope.val = $scope.cantdefecto;
 	if (localStorage.getItem('docenas')==="true") {
@@ -22,9 +22,8 @@ app.controller('mainController', ['$scope', function($scope) {
 		$scope.nochecked = true;
 		$scope.sichecked = false;
 	}
-	$scope.empShow = true;
-	$scope.undoshow = false;
 
+	/* PARTE AGREGAR*/
  	$scope.addpre = function(_gusto) {
  		var gusto = _gusto;
         var num;
@@ -44,17 +43,26 @@ app.controller('mainController', ['$scope', function($scope) {
         localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
  	}
 
-	$scope.defectochange = function() { 
-		var defecto = $scope.cantdefecto
-		localStorage.setItem("defecto", defecto);
-	};
-/*
-	$scope.empanadachange = function() {
-		console.log(this.empanada.id) 
-		console.log(this.empanada.name)
-		console.log(this.empanada.index)
-	}*/
+ 	$scope.addcustom = function() {
+		if($scope.customtext){
+	        var num;
+	        if($scope.empanadas!=null){
+	        	num=$scope.empanadas.length;
+	        } else {
+	        	num=0;
+	        	$scope.empanadas = [];
+	        }
+	        var empanada = {
+	        	name: $scope.customtext,
+	        	id: 'empanada'+num,
+	        	value: $scope.cantdefecto
+	        }
+	        $scope.empanadas.push(empanada);
+	        localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
+        }
+	}
 
+	/*PARTE MANEJO DE EMPANADAS*/
 	$scope.add = function(index) {
 		var emp = $scope.empanadas[index];
 		var nval = emp.value+1
@@ -73,16 +81,6 @@ app.controller('mainController', ['$scope', function($scope) {
 		$scope.empanadas[index] = emp;
 		localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
 	}
-
-	$scope.calcular = function() { 
-		var Total=0;
-		for (var i = 0 ; i< $scope.empanadas.length ; i++ ) { 
-	    	Total = parseInt(Total) + parseInt($scope.empanadas[i].value);
-		}
-		console.log(Total);
-		var dtotal = Math.floor(Total/12)
-		console.log(dtotal+" docena(s) y " + (Total-dtotal*12) + " empanadas.")
-	};
 
 	$scope.total = {
 		valor: function() {
@@ -104,46 +102,36 @@ app.controller('mainController', ['$scope', function($scope) {
 	    	}
 		}
     };
-	
-	$scope.addcustom = function() {
-		if($scope.customtext){
-	        var num;
-	        if($scope.empanadas!=null){
-	        	num=$scope.empanadas.length;
-	        } else {
-	        	num=0;
-	        	$scope.empanadas = [];
-	        }
-	        var empanada = {
-	        	name: $scope.customtext,
-	        	id: 'empanada'+num,
-	        	value: $scope.cantdefecto
-	        }
-	        $scope.empanadas.push(empanada);
-	        localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
-        }
-	}
 
+    /*PARTE SETTINGS*/
+	$scope.defectochange = function() { 
+		var defecto = $scope.cantdefecto
+		localStorage.setItem("defecto", defecto);
+	};
 	$scope.docOn = function() {
 		localStorage.setItem('docenas', 'true')
 	}
 	$scope.docOff = function() {
 		localStorage.setItem('docenas', 'false')
 	}
-	var undoed = false;
+
+	/* PARTE ELIMINAR */ 
+	var delempanada = []
+	var valdelempanada = []
     $scope.swipe = function(index) {
-    	console.log(index)
-    	undoed = false;
     	var emp = $scope.empanadas[index];
     	emp.undo = true;
-    	setTimeout(function() { if(!undoed) {del(index)} }, 10000)
+    	valdelempanada[index] = emp.value;
+    	emp.value = 0;
+    	delempanada[index] = $timeout(function() {del(index)}, 5000)
     	localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
     }
 
     $scope.undo = function(index){
+    	$timeout.cancel(delempanada[index]);
+    	$scope.empanadas[index].value = valdelempanada[index];
     	$scope.empanadas[index].undo = false;
     	localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
-    	undoed = true;
     }
 
     function del(index) {
