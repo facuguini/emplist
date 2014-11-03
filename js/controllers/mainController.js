@@ -5,6 +5,7 @@ app.controller('mainController', ['$scope', '$timeout', function($scope, $timeou
 		localStorage.setItem('defecto', 5);
 		localStorage.setItem('primeravez', 'false')
 		localStorage.setItem('docenas', 'false')
+		localStorage.setItem('empanadas', '[]')
 	}
 	$scope.prefabs = [{name: 'carne'},
         {name: 'jamon y queso'},
