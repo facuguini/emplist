@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="css/jquerytheme.min.css" />
 	<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
 	<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.3.min.css" />
+	<link rel="stylesheet" href="css/main.css" />
 	<script src="js/lib/jquery-1.11.1.min.js"></script>
 	<script src="js/lib/jquery.mobile-1.4.3.min.js"></script>
 	<script src="js/lib/angular.min.js"></script>
@@ -40,14 +41,14 @@
 	</div>
 	<div data-role="content" data-theme="a" >
 		<div id="contenido">
-	      <label for="fname">Tipo</label>
-	      <form ng-submit="addcustom()">
-	      	<input type="text" name="fname" ng-model='customtext' id="fname" data-clear-btn="true">
-	      </form>
-	      <br>
-	      	<span ng-show="undoshow" ng-click="undo()">Undo</span>
-	   		<div ng-repeat="empanada in empanadas track by $index" ng-swipe-left="delete($index)" ng-show="empShow" style="cursor: pointer">
-				<span>{{empanada.name}} : </span><div id='{{empanada.id}}'><a href='#' ng-click='add($index)'>+  </a><span class='empanadas'>{{empanada.value}}</span><a href='#' ng-click='res($index)'>  -</a></div>
+			<label for="fname">Tipo</label>
+			<form ng-submit="addcustom()">
+				<input type="text" name="fname" ng-model='customtext' id="fname" data-clear-btn="true">
+			</form>
+			<br>
+	   		<div ng-repeat="empanada in empanadas track by $index" ng-swipe-left="swipe($index)">
+				<div ng-show="!empanada.undo"><span>{{empanada.name}} : </span><div id='{{empanada.id}}'><a href='#' ng-click='add($index)'>+  </a><span class='empanadas'>{{empanada.value}}</span><a href='#' ng-click='res($index)'>  -</a></div></div>
+				<a href='#' class="ui-btn ui-corner-all" ng-click='res($index)' ng-show="empanada.undo" ng-click="undo($index)">UNDO</a>
 			</div>
 		</div>
 		<pre ng-show="totalshow"> Total: <span ng-bind="total.valor()"></span> empanadas.</pre>

@@ -26,7 +26,6 @@ app.controller('mainController', ['$scope', function($scope) {
 	$scope.undoshow = false;
 
  	$scope.addpre = function(_gusto) {
- 		console.log($scope.cantdefecto)
  		var gusto = _gusto;
         var num;
         if($scope.empanadas!=null){
@@ -38,7 +37,8 @@ app.controller('mainController', ['$scope', function($scope) {
         var empanada = {
         	name: gusto,
         	id: 'empanada'+num,
-        	value: $scope.cantdefecto
+        	value: $scope.cantdefecto,
+        	undo: false
         }
         $scope.empanadas.push(empanada);
         localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
@@ -65,7 +65,10 @@ app.controller('mainController', ['$scope', function($scope) {
 
 	$scope.res = function(index) {
 		var emp = $scope.empanadas[index];
-		var nval = emp.value-1
+		var nval = emp.value;
+		if(nval>=1){
+			nval = emp.value-1
+		}
 		emp.value = nval;
 		$scope.empanadas[index] = emp;
 		localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
@@ -127,10 +130,25 @@ app.controller('mainController', ['$scope', function($scope) {
 	$scope.docOff = function() {
 		localStorage.setItem('docenas', 'false')
 	}
+	var undoed = false;
+    $scope.swipe = function(index) {
+    	console.log(index)
+    	undoed = false;
+    	var emp = $scope.empanadas[index];
+    	emp.undo = true;
+    	setTimeout(function() { if(!undoed) {del(index)} }, 10000)
+    	localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
+    }
 
-    $scope.delete = function(id) {
-    	$scope.empShow = false;
-    	$scope.undoshow = true;
+    $scope.undo = function(index){
+    	$scope.empanadas[index].undo = false;
+    	localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
+    	undoed = true;
+    }
+
+    function del(index) {
+    	$scope.empanadas.splice(index, 1)
+    	localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
     }
 
 }]);
