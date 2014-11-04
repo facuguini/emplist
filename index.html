@@ -26,26 +26,32 @@
 			<input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off" ng-checked="nochecked" ng-click="docOff()"/>
 			<label for="radio-choice-b1">No</label>
 		</fieldset>
+		<br>
 		<label for="slider1">Empanadas por Defecto:</label>
 		<input type="range" name="slider1" id="defecto" value='{{cantdefecto}}' min="0" max="10" data-theme="a" ng-init='val' ng-model="cantdefecto" ng-change='defectochange()'/>
+		<br>
+		<a href="#confirmclear" class="ui-btn" data-rel="popup" data-position-to="window" data-transition="flow">Clear All</a>
 	</div> 
 	<div data-role="panel" id="prePanel" data-position='right' data-position-fixed='true' data-display='overlay'>
 		<ul data-role='listview'>
 			<li ng-repeat='prefab in prefabs'><a href='#' ng-click='addpre(prefab.name)'>{{prefab.name}}</a></li>
 		</ul>
 	</div>
-	<div data-role="header" data-position="inline">
+	<div data-role="header" data-position="fixed" data-tap-toggle="false">
 		<a href="#setPanel" class="ui-btn ui-corner-all ui-shadow ui-icon-gear ui-btn-icon-left ui-btn-icon-notext"></a>
 		<h1>Anotador de Empanadas</h1>
 		<a href="#prePanel" class="ui-btn ui-corner-all ui-shadow ui-icon-grid ui-btn-icon-left ui-btn-icon-notext"></a>
 	</div>
 	<div data-role="content" data-theme="a" >
 		<div id="contenido">
-			<label for="fname">Tipo</label>
-			<form ng-submit="addcustom()">
-				<input type="text" name="fname" ng-model='customtext' id="fname" data-clear-btn="true">
-			</form>
-			<br>
+			<div data-position="fixed" data-tap-toggle="false">
+				<label for="fname">Tipo</label>
+				<form ng-submit="addcustom()">
+					<input type="text" name="fname" ng-model='customtext' id="fname" data-clear-btn="true">
+				</form>
+				<br>
+			</div>
+			
 	   		<div ng-repeat="empanada in empanadas track by $index" ng-swipe-left="swipe($index)">
 				<div ng-show="!empanada.undo">
 					<span>{{empanada.name}} : </span>
@@ -58,7 +64,29 @@
 				<a href='#' class="ui-btn" ng-show="empanada.undo" ng-click="undo($index)">UNDO</a>
 			</div>
 		</div>
-		<pre ng-show="totalshow"> Total: <span ng-bind="total.valor()"></span> empanadas.</pre>
+	</div>
+	<div data-role="footer" class="ui-bar" data-position="fixed" data-tap-toggle="false">
+		<div data-role="navbar">
+			<ul>
+				<li><h4 ng-show="totalshow"> Total: <span ng-bind="total.valor()"></span> empanadas.</h4><h6 ng-show="!totalshow">Agregue empanadas</h6></li>
+				<li></li>
+			</ul>	
+		</div>
+	</div>
+	<div id="confirmclear" data-role="popup" data-dismissible="false" data-theme="e" data-overlay-theme="a">
+		<div data-role="header">
+			<h4>Seguro?</h4>
+		</div>
+		<div data-role="content">
+			<p>Vas a eliminar toda la lista...</p>
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#" data-rel="back" class="ui-btn">No</a></li>
+					<li></li>
+					<li><a href="#" data-rel="back" ng-click="clearAll()" class="ui-btn btndel">Si</a></li>
+				</ul>	
+			</div>
+		</div>
 	</div>
 </div>
 

@@ -60,6 +60,7 @@ app.controller('mainController', ['$scope', '$timeout', function($scope, $timeou
 	        }
 	        $scope.empanadas.push(empanada);
 	        localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
+	        $scope.customtext = "";
         }
 	}
 
@@ -137,6 +138,10 @@ app.controller('mainController', ['$scope', '$timeout', function($scope, $timeou
 
     function del(index) {
     	$scope.empanadas.splice(index, 1)
+    	localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
+    }
+    $scope.clearAll = function() {
+    	$scope.empanadas = [];
     	localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
     }
 
