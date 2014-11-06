@@ -11,6 +11,7 @@
 	<script src="js/lib/jquery.mobile-1.4.3.min.js"></script>
 	<script src="js/lib/angular.min.js"></script>
 	<script src="js/lib/angular-touch.min.js"></script>
+	<!-- <script src="js/lib/angular-animate.min.js"></script> -->
 	<script src="js/main.js"></script>
 	<script src="js/controllers/mainController.js"></script>
 </head>
@@ -21,9 +22,9 @@
     	<h2>Settings</h2>
     	<fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
 			<legend>Dividir en Docenas:</legend>
-			<input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" ng-checked="sichecked" ng-click="docOn()"/>
+			<input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" ng-checked="docenas" ng-click="docOn()"/>
 			<label for="radio-choice-a1">Si</label>
-			<input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off" ng-checked="nochecked" ng-click="docOff()"/>
+			<input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off" ng-checked="!docenas" ng-click="docOff()"/>
 			<label for="radio-choice-b1">No</label>
 		</fieldset>
 		<br>
@@ -49,19 +50,17 @@
 				<form ng-submit="addcustom()">
 					<input type="text" name="fname" ng-model='customtext' id="fname" data-clear-btn="true">
 				</form>
-				<br>
 			</div>
-			
-	   		<div ng-repeat="empanada in empanadas track by $index" ng-swipe-left="swipe($index)">
-				<div ng-show="!empanada.undo">
-					<span>{{empanada.name}} : </span>
-					<div id='{{empanada.id}}'>
-						<a href='#' class="ui-btn ui-btn-inline" ng-click='add($index)'>+  </a>
-						<span class='empanadas'>{{empanada.value}}</span>
-						<a href='#' class="ui-btn ui-btn-inline" ng-click='res($index)'>  -</a>
+	   		<div ng-repeat="empanada in empanadas track by $index" class="list" ng-swipe-left="swipe($index)">
+				<div ng-show="!empanada.undo" class="ui-grid-a">
+					<h3 class="ui-block-a">{{empanada.name}} : </h3>
+					<div id='{{empanada.id}}' class="ui-block-b" data-role="controlgroup" data-type="horizontal">
+						<a href='#' class="ui-btn ui-icon-plus ui-btn-icon-notext" data-role="button" ng-click='add($index)'>+</a>
+						<a href='#' class='ui-btn empanadas' data-role="button">{{empanada.value}}</a>
+						<a href='#' class="ui-btn ui-icon-minus ui-btn-icon-notext" data-role="button" ng-click='res($index)'>-</a>
 					</div>
 				</div>
-				<a href='#' class="ui-btn" ng-show="empanada.undo" ng-click="undo($index)">UNDO</a>
+				<a href='#' class="ui-btn undo" ng-show="empanada.undo" ng-click="undo($index)">UNDO</a>
 			</div>
 		</div>
 	</div>

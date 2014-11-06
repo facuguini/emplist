@@ -2,6 +2,18 @@
     background-color: #AA3333;
 }
 
+.list {
+    width: 110%;
+    margin-left: -5%;
+    box-shadow: 0px 0px 2px #888888;
+    padding-left: 5%;
+}
+
+.undo {
+    margin-left: -5%;
+    height: 110%;
+}
+
 .animate-enter { 
     -webkit-animation: enter 600ms cubic-bezier(0.390, 0.575, 0.565, 1.000);
     animation: enter 600ms cubic-bezier(0.390, 0.575, 0.565, 1.000);

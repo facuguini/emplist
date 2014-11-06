@@ -19,11 +19,9 @@ app.controller('mainController', ['$scope', '$timeout', function($scope, $timeou
 	var _id = localStorage.getItem('id')
 	$scope.val = $scope.cantdefecto;
 	if (localStorage.getItem('docenas')==="true") {
-		$scope.nochecked = false;
-		$scope.sichecked = true;
+		$scope.docenas = true;
 	} else if (localStorage.getItem('docenas')==="false") {
-		$scope.nochecked = true;
-		$scope.sichecked = false;
+		$scope.docenas = false;
 	}
 
 	/* PARTE AGREGAR*/
@@ -104,9 +102,11 @@ app.controller('mainController', ['$scope', '$timeout', function($scope, $timeou
 		localStorage.setItem("defecto", defecto);
 	};
 	$scope.docOn = function() {
+		$scope.docenas = true;
 		localStorage.setItem('docenas', 'true')
 	}
 	$scope.docOff = function() {
+		$scope.docenas = false;
 		localStorage.setItem('docenas', 'false')
 	}
 
