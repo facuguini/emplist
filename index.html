@@ -54,10 +54,12 @@
 	   		<div ng-repeat="empanada in empanadas track by $index" class="list" ng-swipe-left="swipe($index)">
 				<div ng-show="!empanada.undo" class="ui-grid-a">
 					<h3 class="ui-block-a">{{empanada.name}} : </h3>
-					<div id='{{empanada.id}}' class="ui-block-b" data-role="controlgroup" data-type="horizontal">
-						<a href='#' class="ui-btn ui-icon-plus ui-btn-icon-notext" data-role="button" ng-click='add($index)'>+</a>
-						<a href='#' class='ui-btn empanadas' data-role="button">{{empanada.value}}</a>
-						<a href='#' class="ui-btn ui-icon-minus ui-btn-icon-notext" data-role="button" ng-click='res($index)'>-</a>
+					<div class="ui-block-b">
+						<div id='{{empanada.id}}' data-role="controlgroup" data-type="horizontal">
+							<a href='#' class="ui-btn ui-icon-plus ui-btn-icon-notext" data-role="button" ng-click='add($index)'>+</a>
+							<a href='#' class='ui-btn' data-role="button">{{empanada.value}}</a>
+							<a href='#' class="ui-btn ui-icon-minus ui-btn-icon-notext" data-role="button" ng-click='res($index)'>-</a>
+						</div>
 					</div>
 				</div>
 				<a href='#' class="ui-btn undo" ng-show="empanada.undo" ng-click="undo($index)">UNDO</a>
