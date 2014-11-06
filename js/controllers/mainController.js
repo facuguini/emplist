@@ -75,6 +75,18 @@ app.controller('mainController', ['$scope', '$timeout', function($scope, $timeou
 		localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
 	}
 
+	$scope.addmant = function(index) {
+		
+			var emp = $scope.empanadas[index];
+			var nval = emp.value;
+			if(nval>=1){
+				nval = emp.value-1
+			}
+			emp.value = nval;
+			$scope.empanadas[index] = emp;
+			localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
+		
+	}
 	$scope.total = {
 		valor: function() {
 	      	var Total=0;

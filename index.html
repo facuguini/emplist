@@ -44,7 +44,6 @@
 		<a href="#prePanel" class="ui-btn ui-corner-all ui-shadow ui-icon-grid ui-btn-icon-left ui-btn-icon-notext"></a>
 	</div>
 	<div data-role="content" data-theme="a" >
-		<div id="contenido">
 			<div data-position="fixed" data-tap-toggle="false">
 				<label for="fname">Tipo</label>
 				<form ng-submit="addcustom()">
@@ -54,17 +53,14 @@
 	   		<div ng-repeat="empanada in empanadas track by $index" class="list" ng-swipe-left="swipe($index)">
 				<div ng-show="!empanada.undo" class="ui-grid-a">
 					<h3 class="ui-block-a">{{empanada.name}} : </h3>
-					<div class="ui-block-b">
-						<div id='{{empanada.id}}' data-role="controlgroup" data-type="horizontal">
-							<a href='#' class="ui-btn ui-icon-plus ui-btn-icon-notext" data-role="button" ng-click='add($index)'>+</a>
-							<a href='#' class='ui-btn' data-role="button">{{empanada.value}}</a>
-							<a href='#' class="ui-btn ui-icon-minus ui-btn-icon-notext" data-role="button" ng-click='res($index)'>-</a>
-						</div>
+					<div id='{{empanada.id}}' class="ui-block-b">
+						<a href='#' class="ui-btn ui-icon-plus ui-btn-icon-notext ui-btn-inline ui-corner-all" data-role="button" ng-click='add($index)' ng-mousedown="addmant($index)">+</a>
+						<span>{{empanada.value}}</span>
+						<a href='#' class="ui-btn ui-icon-minus ui-btn-icon-notext ui-btn-inline ui-corner-all" data-role="button" ng-click='res($index)'>-</a>
 					</div>
 				</div>
 				<a href='#' class="ui-btn undo" ng-show="empanada.undo" ng-click="undo($index)">UNDO</a>
 			</div>
-		</div>
 	</div>
 	<div data-role="footer" class="ui-bar" data-position="fixed" data-tap-toggle="false">
 		<div data-role="navbar">
