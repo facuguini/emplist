@@ -6,6 +6,7 @@ app.controller('mainController', ['$scope', '$timeout', function($scope, $timeou
 		localStorage.setItem('primeravez', 'false')
 		localStorage.setItem('docenas', 'false')
 		localStorage.setItem('empanadas', '[]')
+		localStorage.setItem('id', 0);
 	}
 	$scope.prefabs = [{name: 'carne'},
         {name: 'jamon y queso'},
@@ -15,6 +16,7 @@ app.controller('mainController', ['$scope', '$timeout', function($scope, $timeou
         {name: 'calabresa'}];
     $scope.empanadas = JSON.parse(localStorage.getItem('empanadas'));
 	$scope.cantdefecto = JSON.parse(localStorage.getItem('defecto'));
+	var _id = localStorage.getItem('id')
 	$scope.val = $scope.cantdefecto;
 	if (localStorage.getItem('docenas')==="true") {
 		$scope.nochecked = false;
@@ -27,39 +29,30 @@ app.controller('mainController', ['$scope', '$timeout', function($scope, $timeou
 	/* PARTE AGREGAR*/
  	$scope.addpre = function(_gusto) {
  		var gusto = _gusto;
-        var num;
-        if($scope.empanadas!=null){
-        	num=$scope.empanadas.length;
-        } else {
-        	num=0;
-			$scope.empanadas = [];
-        }
         var empanada = {
+        	id: _id,
         	name: gusto,
-        	id: 'empanada'+num,
         	value: $scope.cantdefecto,
         	undo: false
         }
+        _id++;
         $scope.empanadas.push(empanada);
         localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
+        localStorage.setItem('id', _id);
  	}
 
  	$scope.addcustom = function() {
 		if($scope.customtext){
-	        var num;
-	        if($scope.empanadas!=null){
-	        	num=$scope.empanadas.length;
-	        } else {
-	        	num=0;
-	        	$scope.empanadas = [];
-	        }
 	        var empanada = {
+	        	id: _id,
 	        	name: $scope.customtext,
-	        	id: 'empanada'+num,
-	        	value: $scope.cantdefecto
+	        	value: $scope.cantdefecto,
+	        	undo: false
 	        }
+	        _id++;
 	        $scope.empanadas.push(empanada);
 	        localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
+	        localStorage.setItem('id', _id);
 	        $scope.customtext = "";
         }
 	}
@@ -125,7 +118,7 @@ app.controller('mainController', ['$scope', '$timeout', function($scope, $timeou
     	emp.undo = true;
     	valdelempanada[index] = emp.value;
     	emp.value = 0;
-    	delempanada[index] = $timeout(function() {del(index)}, 5000)
+    	delempanada[index] = $timeout(function() {del(emp.id)}, 5000)
     	localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
     }
 
@@ -136,13 +129,19 @@ app.controller('mainController', ['$scope', '$timeout', function($scope, $timeou
     	localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
     }
 
-    function del(index) {
-    	$scope.empanadas.splice(index, 1)
+    function del(_id) {
+    	for (i in $scope.empanadas) {
+    		if ($scope.empanadas[i].id===_id) {
+    			$scope.empanadas.splice(i,1);
+    		}
+    	}
     	localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
     }
     $scope.clearAll = function() {
+    	_id = 0;
     	$scope.empanadas = [];
     	localStorage.setItem('empanadas', JSON.stringify($scope.empanadas));
+    	localStorage.setItem('id', _id);
     }
 
 }]);
