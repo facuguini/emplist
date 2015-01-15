@@ -1,63 +1,39 @@
-	<body ng-controller="mainController">
-	<div data-role="page" data-theme="a">
-	<div data-role="panel" id="setPanel"> 
-    	<h2>Settings</h2>
-    	<fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-			<legend>Settings 1:</legend>
-			<input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" />
-			<label for="radio-choice-a1">On</label>
-			<input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  />
-			<label for="radio-choice-b1">Off</label>
-		</fieldset>
-		<fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-			<legend>Settings 2:</legend>
-			<input type="radio" name="radio-choice-a2" id="radio-choice-a2" value="on" checked="checked" />
-			<label for="radio-choice-a2">On</label>
-			<input type="radio" name="radio-choice-a2" id="radio-choice-b2" value="off"  />
-			<label for="radio-choice-b2">Off</label>
-		</fieldset>
-    	<fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-			<legend>Settings 3:</legend>
-			<input type="radio" name="radio-choice-a3" id="radio-choice-a3" value="on" checked="checked" />
-			<label for="radio-choice-a3">On</label>
-			<input type="radio" name="radio-choice-a3" id="radio-choice-b3" value="off"  />
-			<label for="radio-choice-b3">Off</label>
-		</fieldset>
-    	<fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-			<legend>Settings 4:</legend>
-			<input type="radio" name="radio-choice-a4" id="radio-choice-a4" value="on" checked="checked" />
-			<label for="radio-choice-a4">On</label>
-			<input type="radio" name="radio-choice-a4" id="radio-choice-b4" value="off"  />
-			<label for="radio-choice-b4">Off</label>
-		</fieldset>
-		<label for="slider1">Empanadas por Defecto:</label>
-		<input type="range" name="slider1" id="defecto" value="5" min="0" max="10" data-theme="a" />
-	</div> 
-	<div data-role="panel" id="prePanel" data-position='right' data-position-fixed='true'>
-		<ul data-role='listview'>
-			<li><a href='#' class='prefab'>Carne</a></li>
-			<li><a href='#' class='prefab'>Jamon y Queso</a></li>
-			<li><a href='#' class='prefab'>Pollo</a></li>
-			<li><a href='#' class='prefab'>Queso y Cebolla</a></li>
-			<li><a href='#' class='prefab'>Humita</a></li>
-			<li><a href='#' class='prefab'>Calabresa</a></li>
-		</ul>
-	</div>
-	<div data-role="header" data-position="inline">
-		<a href="#setPanel" class="ui-btn ui-corner-all ui-shadow ui-icon-gear ui-btn-icon-left ui-btn-icon-notext"></a>
-		<h1>Anotador de Empanadas</h1>
-		<a href="#prePanel" class="ui-btn ui-corner-all ui-shadow ui-icon-grid ui-btn-icon-left ui-btn-icon-notext"></a>
-	</div>
-	<div data-role="content" data-theme="a" >
-		<div id="contenido">
-	      <label for="fname">Tipo</label>
-	      <input type="text" name="fname" onkeypress="return runScript(event)" id="fname" data-clear-btn="true">
-	      <br>
-	   		<div>
-				<label for="empanada1">Carne: </label>
-				<input type="range" class="empanada" name="empanada1" id="empanada1" value="5" min="0" max="50" data-theme="a"  /> 
-			</div>	
-		</div>
-		<button class="ui-btn" id="boton">Calcular</button> 
-	</div>
-</div>
+<ion-view title="Main">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <button class="button button-icon icon ion-close" ng-click="sDelete()"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <form ng-submit='agregar(empanada.nombre)' class="agregar">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <i class="icon ion-plus-round placeholder-icon"></i>
+          <input type="text" placeholder="Nuevo Gusto" ng-model='empanada.nombre'>
+        </label>
+      </div>
+    </form>
+    <ion-list show-delete="showDelete">
+      <ion-item ng-repeat="empanada in empanadas track by $index" class="lista">
+        <div class="row">
+          <div class="col col-50">
+            <h2 class="emp">{{empanada.nombre}}</h2>
+          </div>
+          <div class="col col-50">
+              <div class="button-bar">
+                <a class="button" ng-click="restar(empanada)"><i class="icon ion-minus ibutton"></i></a>
+                <a class="button" ng-click="editar($event, empanada.cantidad, $index)">{{empanada.cantidad}}</a>
+                <a class="button" ng-click="sumar(empanada)"><i class="icon ion-plus ibutton"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ion-delete-button class="ion-minus-circled" ng-click="delete($index, 'empanadas')"></ion-delete-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="bar-assertive">
+    <h5 class="light foot" ng-show="totalshow">Total: <span ng-bind="total.valor()"></span> empanada(s).</h5>
+  </ion-footer-bar>
+</ion-view>

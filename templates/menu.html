@@ -1,0 +1,48 @@
+<ion-side-menus>
+
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-stable bar-header bar-assertive">
+      <ion-nav-back-button class="button-clear">
+        <i class="icon ion-ios7-arrow-back"></i> Back
+      </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <ion-content>
+      <ion-list>
+        <div class="item item-divider">
+          <p class="fix">Navegador</p>
+        </div>
+        <ion-item nav-clear menu-close href="#/app/main">
+          <p class="fix fix3">Main</p>
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/agregar">
+          <p class="fix fix3">Agregar</p>
+        </ion-item>
+        <div class="item item-divider">
+          <p class="fix">Settings</p>
+        </div>
+        <ion-toggle ng-model="config.checked" ng-change="docenaschg(config.checked)" ng-checked="checked" toggle-class="toggle-assertive">
+          Docenas
+        </ion-toggle>
+        <ion-item>
+          <label for="defecto" class="fix">Cantidad por Defecto</label>
+          <div class="range range-assertive">
+            <input type="range" name="defecto" min="0" max="{{config.max}}" value='config.defecto' ng-model='config.defecto' ng-change="defectochg(config.defecto)">
+            {{config.defecto}}
+          </div>
+
+        </ion-item>
+        <ion-item>
+          <label for="defecto" class="fix">Cantidad maxima</label>
+          <div class="range range-assertive">
+            <input type="range" name="defecto" min="0" max="100" value='config.max' ng-model='config.max' ng-change="maxchg(config.max)">
+            {{config.max}}
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

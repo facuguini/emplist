@@ -1,0 +1,12 @@
+<style>.popover { height:50px; width: 75px; }</style>
+<ion-popover-view>
+  <ion-content scroll="false">
+    <span ng-show="false" ng-model="id"></span>
+    <form ng-submit="guardarCant(popover.value, id)">
+      <label class="item item-input">
+        <input type="text" placeholder="cantidad" pattern="\d*" ng-model="popover.value" required>
+      </label>
+      <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+    </form>
+  </ion-content>
+</ion-popover-view>

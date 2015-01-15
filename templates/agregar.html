@@ -1,0 +1,24 @@
+<ion-view title="Agregar">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <button class="button button-icon icon ion-close-circled" ng-click="sDelete()"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <form ng-submit='agregarpre(empanada.nombre)' class="agregar">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <i class="icon ion-plus-round placeholder-icon"></i>
+          <input type="text" placeholder="Nuevo Gusto" ng-model='empanada.nombre'>
+        </label>
+      </div>
+    </form>
+    <ion-list show-delete="showDelete">
+      <ion-item ng-repeat="empanada in predefinidos track by $index" ng-click="agregar(empanada.nombre)">
+        <h3 class="fix2">{{empanada.nombre}}</h3>
+        <ion-delete-button class="ion-minus-circled" ng-click="delete($index, 'prefabs')"></ion-delete-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
